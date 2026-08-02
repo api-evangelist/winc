@@ -1,0 +1,42 @@
+generated: '2026-07-21'
+method: searched
+source: https://winc.com/.well-known/openid-configuration
+docs: https://shopify.dev/docs/api/customer
+name: Winc Authentication Profile
+description: >-
+  Authenticated buyer and agent actions against Winc's Shopify-hosted store use the Shopify
+  Customer Account API, secured with OpenID Connect / OAuth 2.0 (authorization code + PKCE).
+  Read-only catalog browsing over the storefront and UCP catalog tools is unauthenticated.
+provider: Shopify Customer Account API
+schemes:
+- id: shopify_customer_account_oidc
+  type: openIdConnect
+  flows:
+  - authorization_code
+  openid_connect_url: https://winc.com/.well-known/openid-configuration
+  issuer: https://shopify.com/authentication/77589545277
+  authorization_endpoint: https://shopify.com/authentication/77589545277/oauth/authorize
+  token_endpoint: https://shopify.com/authentication/77589545277/oauth/token
+  end_session_endpoint: https://shopify.com/authentication/77589545277/logout
+  jwks_uri: https://shopify.com/authentication/77589545277/.well-known/jwks.json
+  grant_types_supported:
+  - authorization_code
+  - refresh_token
+  - urn:ietf:params:oauth:grant-type:jwt-bearer
+  code_challenge_methods_supported:
+  - S256
+  token_endpoint_auth_methods_supported:
+  - client_secret_basic
+  id_token_signing_alg_values_supported:
+  - RS256
+  scopes_supported:
+  - openid
+  - email
+  - customer-account-api:full
+  - customer-account-mcp-api:full
+unauthenticated_surface:
+- Storefront product/collection JSON (GET /products/{handle}.json, /collections/{handle}/products.json)
+- Storefront search (GET /search?q=...&type=product)
+- UCP catalog search/lookup and cart creation prior to buyer-approved checkout
+notes:
+- Payment completion always requires explicit buyer approval (see llms.txt / UCP checkout rules).

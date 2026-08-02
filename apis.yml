@@ -1,8 +1,27 @@
 aid: winc
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/winc.png
 name: Winc
-description: Winc is a company surfaced as a portfolio company of 500-global, bessemer-venture-partners
-  and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the
-  enrichment pipeline.
+description: >-
+  Winc is a direct-to-consumer online wine club and retailer (winc.com) offering curated,
+  personalized wine subscriptions and single-bottle purchases matched to a member's palate
+  profile. The winc.com storefront runs on Shopify and exposes a modern agentic-commerce
+  surface: a hosted UCP (Universal Commerce Protocol) MCP endpoint, Shopify Customer Account
+  API authentication (OpenID Connect), and published /llms.txt and /agents.md agent
+  instructions that let AI shopping assistants discover the catalog, build carts, and drive
+  buyer-approved checkout. Originally surfaced as a VC portfolio company and enriched from its
+  public agent-facing surface by the API Evangelist enrichment pipeline.
 url: https://raw.githubusercontent.com/api-evangelist/winc/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -13,10 +32,39 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Wine
+- Ecommerce
+- Retail
+- Subscription
+- Agentic Commerce
+- MCP
+- Shopify
+- UCP
+apis:
+- name: Winc UCP Commerce MCP
+  description: >-
+    Agentic-commerce API for the Winc storefront, implemented via the Shopify-native Universal
+    Commerce Protocol (UCP). Agents discover capabilities at /.well-known/ucp and call commerce
+    tools over the MCP endpoint; checkout requires explicit buyer approval before payment.
+  humanURL: https://www.winc.com
+  baseURL: https://www.winc.com/api/ucp/mcp
+  tags:
+  - Agentic Commerce
+  - MCP
+  - UCP
+  - Shopify
+  properties:
+  - type: MCPServer
+    url: mcp/winc-mcp.yml
+  - type: LLMsTxt
+    url: llms/winc-llms.txt
+  - type: Authentication
+    url: authentication/winc-authentication.yml
+  - type: OAuthScopes
+    url: scopes/winc-scopes.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +73,28 @@ maintainers:
 common:
 - type: Website
   url: https://winc.com
+- type: MCPServer
+  url: mcp/winc-mcp.yml
+- type: LLMsTxt
+  url: llms/winc-llms.txt
+- type: WellKnown
+  url: well-known/winc-well-known.yml
+- type: Authentication
+  url: authentication/winc-authentication.yml
+- type: OAuthScopes
+  url: scopes/winc-scopes.yml
+- type: Conformance
+  url: conformance/winc-conformance.yml
+- type: Conventions
+  url: conventions/winc-conventions.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: PrivacyPolicy
+  url: https://www.winc.com/policies/privacy-policy
+- type: TermsOfService
+  url: https://www.winc.com/policies/terms-of-service
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 11
+  pass: local-v1

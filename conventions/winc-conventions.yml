@@ -1,0 +1,43 @@
+generated: '2026-07-21'
+method: searched
+source: https://www.winc.com/llms.txt
+name: Winc API Conventions
+description: >-
+  Cross-cutting runtime semantics for Winc's Shopify/UCP agentic-commerce surface, drawn from
+  the published /llms.txt agent instructions and /.well-known/ucp merchant profile.
+auth:
+  style: OpenID Connect / OAuth 2.0 (Shopify Customer Account API); read-only browsing unauthenticated
+  ref: authentication/winc-authentication.yml
+versioning:
+  style: date-based protocol versions (UCP)
+  current: '2026-04-08'
+  supported:
+  - '2026-04-08'
+  - '2026-01-23'
+  note: Negotiated via the UCP merchant profile at /.well-known/ucp.
+rate_limiting:
+  signaling: HTTP 429 on the MCP endpoint (per-IP)
+  guidance: Back off on 429 responses.
+request_context:
+  required_hints:
+  - context.address_country
+  - context.currency
+  note: Pass buyer context for accurate pricing and availability.
+buyer_approval:
+  invariant: Agents must not complete payment without explicit, contemporaneous buyer consent.
+  fallback: Route payment through Shop Pay via the Shop skill (https://shop.app/SKILL.md) when live approval is not possible.
+read_only_access:
+  auth: none
+  endpoints:
+  - GET /products/{handle}.json
+  - GET /collections/{handle}/products.json
+  - GET /search?q={query}&type=product
+  - GET /sitemap.xml
+error_handling:
+  ref: errors/ (not published as a structured problem catalog by this store)
+  note: MCP/JSON-RPC error envelopes per the MCP transport; HTTP 429 for rate limiting.
+discovery:
+  agent_entrypoints:
+  - /llms.txt
+  - /agents.md
+  - /.well-known/ucp

@@ -1,0 +1,35 @@
+generated: '2026-07-21'
+method: searched
+source: https://www.winc.com/.well-known/ucp
+name: Winc Conformance
+description: >-
+  Cross-cutting standards conformance for Winc's Shopify-hosted agentic-commerce surface,
+  asserted from published discovery documents (/.well-known/ucp, /.well-known/openid-configuration)
+  and the /llms.txt agent instructions. Each entry cites evidence; absence of a claim is honest.
+conformance:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    /.well-known/oauth-authorization-server and /.well-known/openid-configuration advertise
+    authorization_code + refresh_token grants with S256 PKCE (Shopify Customer Account API).
+- id: oidc
+  conforms: true
+  evidence: >-
+    /.well-known/openid-configuration is a valid OpenID Connect discovery document
+    (issuer, jwks_uri, id_token RS256, standard claims).
+- id: mcp
+  conforms: true
+  evidence: >-
+    Hosted MCP endpoint POST /api/ucp/mcp supports the MCP tools/list method
+    (documented in /llms.txt); transport "mcp" declared in /.well-known/ucp.
+- id: ucp
+  conforms: true
+  evidence: >-
+    Implements the Universal Commerce Protocol (ucp.dev) versions 2026-04-08 and 2026-01-23
+    with cart, checkout, fulfillment, discount, order, and catalog capabilities in /.well-known/ucp.
+- id: rfc9727
+  conforms: false
+  evidence: /.well-known/api-catalog returned HTTP 404 — no RFC 9727 API catalog published.
+- id: security_txt
+  conforms: false
+  evidence: /.well-known/security.txt returned HTTP 404 — no RFC 9116 security.txt published.

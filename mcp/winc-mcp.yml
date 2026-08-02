@@ -1,0 +1,57 @@
+generated: '2026-07-21'
+method: searched
+source: https://www.winc.com/llms.txt
+name: Winc UCP Commerce MCP Server
+description: >-
+  Winc (winc.com) exposes a hosted, remote Model Context Protocol (MCP) server for
+  agent-driven commerce, implemented via the Shopify-native Universal Commerce Protocol
+  (UCP). Agents discover capabilities at /.well-known/ucp and call tools over the MCP
+  endpoint. Checkout requires explicit human/buyer approval before payment.
+status: published
+transport: http
+protocol: mcp
+endpoint: https://www.winc.com/api/ucp/mcp
+alt_endpoint: https://wincwine.myshopify.com/api/ucp/mcp
+method_hint: 'POST with Content-Type: application/json; call MCP tools/list to discover live tool schemas'
+discovery: https://www.winc.com/.well-known/ucp
+spec: https://ucp.dev
+platform: Shopify
+ucp_versions:
+- '2026-04-08'
+- '2026-01-23'
+auth:
+  note: >-
+    Read-only catalog browsing is unauthenticated. Authenticated buyer actions use the
+    Shopify Customer Account API (OpenID Connect); the customer-account-mcp-api:full scope
+    is advertised in /.well-known/openid-configuration.
+  scheme: oauth2/oidc
+  scopes:
+  - customer-account-mcp-api:full
+rules:
+- Checkout requires explicit buyer approval; agents must not complete payment without contemporaneous buyer consent.
+- MCP endpoint is rate-limited per IP; back off on HTTP 429.
+- Pass context.address_country and context.currency for accurate pricing and availability.
+tools:
+- name: search_catalog
+  description: Find products in the store matching the buyer's intent.
+  source: llms.txt agent flow + dev.ucp.shopping.catalog.search capability
+- name: create_cart
+  description: Create a cart and add desired items.
+  source: llms.txt agent flow + dev.ucp.shopping.cart capability
+- name: create_checkout
+  description: Start the purchase / checkout flow for a cart.
+  source: llms.txt agent flow + dev.ucp.shopping.checkout capability
+- name: update_checkout
+  description: Set the shipping address and fulfillment method on a checkout.
+  source: llms.txt agent flow + dev.ucp.shopping.fulfillment capability
+- name: complete_checkout
+  description: Finalize the purchase (buyer must approve payment).
+  source: llms.txt agent flow + dev.ucp.shopping.checkout capability
+tools_note: >-
+  Tool names above are drawn verbatim from the provider's published /llms.txt agent flow and
+  the UCP capability set in /.well-known/ucp. Call MCP tools/list against the endpoint for the
+  authoritative, live tool schemas.
+payment_handlers:
+- com.google.pay
+- dev.shopify.card
+- dev.shopify.shop_pay

@@ -1,0 +1,41 @@
+generated: '2026-07-21'
+method: searched
+source: https://www.winc.com/.well-known/
+name: Winc .well-known Endpoints
+description: >-
+  Results of probing Winc's public /.well-known/ surface. winc.com is a Shopify-hosted
+  store that exposes an agentic-commerce surface via the Universal Commerce Protocol (UCP)
+  and the Shopify Customer Account API (OpenID Connect). Absence of a record is valid data.
+host: www.winc.com
+endpoints:
+- path: /.well-known/openid-configuration
+  status: 200
+  file: winc-openid-configuration.json
+  note: Shopify Customer Account API OpenID Connect discovery document (issuer shopify.com/authentication/77589545277).
+- path: /.well-known/oauth-authorization-server
+  status: 200
+  file: winc-openid-configuration.json
+  note: Returns the same Shopify Customer Account authorization-server metadata as openid-configuration.
+- path: /.well-known/ucp
+  status: 200
+  file: winc-ucp.json
+  note: Universal Commerce Protocol (UCP) merchant profile — services, capabilities, and payment handlers.
+- path: /.well-known/security.txt
+  status: 404
+  file: null
+  note: No published security.txt.
+- path: /.well-known/api-catalog
+  status: 404
+  file: null
+  note: No RFC 9727 api-catalog document.
+- path: /.well-known/ai-plugin.json
+  status: 404
+  file: null
+  note: No legacy ai-plugin manifest (superseded by llms.txt / agents.md / UCP here).
+related:
+- path: /llms.txt
+  status: 200
+  note: Agent instructions (captured verbatim in llms/winc-llms.txt).
+- path: /agents.md
+  status: 200
+  note: Canonical agent-facing store description; mirrors /llms.txt.

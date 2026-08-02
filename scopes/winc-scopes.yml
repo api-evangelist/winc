@@ -1,0 +1,19 @@
+generated: '2026-07-21'
+method: searched
+source: https://winc.com/.well-known/openid-configuration
+docs: https://shopify.dev/docs/api/customer
+name: Winc OAuth Scopes
+description: >-
+  OAuth 2.0 / OpenID Connect scopes advertised for authenticated buyer and agent access to
+  Winc's Shopify Customer Account API, taken verbatim from the store's OpenID Connect
+  discovery document (scopes_supported).
+provider: Shopify Customer Account API
+scopes:
+- name: openid
+  description: Standard OpenID Connect scope; issues an ID token identifying the buyer.
+- name: email
+  description: Grants access to the buyer's email address and email_verified claim.
+- name: customer-account-api:full
+  description: Full access to the Shopify Customer Account API (orders, addresses, profile) for the authenticated buyer.
+- name: customer-account-mcp-api:full
+  description: Full access to the customer-account MCP API surface, enabling agent-driven authenticated account actions over MCP.

@@ -1,0 +1,18 @@
+generated: '2026-07-21'
+method: generated
+source: https://www.winc.com/llms.txt
+name: Winc Agent Skills
+description: >-
+  Packaged Agent Skills for Winc's Shopify/UCP agentic-commerce surface, grounded in the
+  real UCP tool names published in the store's /llms.txt agent flow.
+skills:
+- name: winc-buy-wine
+  file: winc-buy-wine.md
+  api: Winc UCP Commerce MCP
+  operations:
+  - search_catalog
+  - create_cart
+  - create_checkout
+  - update_checkout
+  - complete_checkout
+  description: Buy wine on behalf of a consenting buyer via the UCP MCP endpoint.
