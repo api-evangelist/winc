@@ -54,7 +54,7 @@ tags:
 - Agentic Commerce
 - MCP
 - Shopify
-- UCP
+- Universal Commerce Protocol
 tags_raw:
 - Company
 - Wine
@@ -74,6 +74,11 @@ apis:
   humanURL: https://www.winc.com
   baseURL: https://www.winc.com/api/ucp/mcp
   tags:
+  - Agentic Commerce
+  - MCP
+  - Universal Commerce Protocol
+  - Shopify
+  tags_raw:
   - Agentic Commerce
   - MCP
   - UCP
