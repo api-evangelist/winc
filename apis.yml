@@ -92,6 +92,9 @@ apis:
     url: authentication/winc-authentication.yml
   - type: OAuthScopes
     url: scopes/winc-scopes.yml
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: ucp
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
